@@ -6,6 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "dateScript": "./src/date.js",
+    "numGame": "./src/num.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/EvgenySamohvalov/node-project.git"
@@ -15,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/EvgenySamohvalov/node-project/issues"
   },
-  "homepage": "https://github.com/EvgenySamohvalov/node-project#readme"
+  "homepage": "https://github.com/EvgenySamohvalov/node-project#readme",
+  "dependencies": {
+    "yargs": "^17.7.2"
+  }
 }
