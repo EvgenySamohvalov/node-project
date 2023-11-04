@@ -108,5 +108,5 @@ app.delete('/api/books/:id', (req, res) => {
     }
 })
 
-const POSR = process.env || 3000
+const PORT = process.env.PORT || 3000
 app.listen(PORT)
