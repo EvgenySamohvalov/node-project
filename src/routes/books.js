@@ -3,6 +3,11 @@ const router = express.Router();
 const store = require("../stors/store");
 const Book = require("../classes/book");
 const file = require("../middleware/file");
+const path = require("path");
+
+router.get("/", (req, res) => {
+  res.json("Домашняя страница");
+});
 
 /* Получаем все книги */
 router.get("/api/books", (req, res) => {
@@ -24,13 +29,28 @@ router.get("/api/books/:id", (req, res) => {
   }
 });
 
+/* Скачиваем книгу */
+router.get("/api/books/:id/download", async (req, res) => {
+  const { books } = store;
+  const { id } = req.params;
+  const idx = books.findIndex((book) => book.id === id);
+
+  if (idx !== -1) {
+    const file = path.join(__dirname, '..', '..', books[idx].fileBook)
+    res.sendFile(file)
+  } else {
+    res.status(404);
+    res.json("Книга не найдена (404)");
+  }
+});
+
 /* Записываем книгу */
-router.post("/api/books", file.single("user-book"), (req, res) => {
+router.post("/api/books", file.single("book"), (req, res) => {
   if (req.file) {
     const { books } = store;
     const { title, description, authors, favorite, fileCover, fileName } =
       req.body;
-    const { fileBook } = req.file;
+    const { path } = req.file;
 
     const newBook = new Book(
       title,
@@ -39,7 +59,7 @@ router.post("/api/books", file.single("user-book"), (req, res) => {
       favorite,
       fileCover,
       fileName,
-      fileBook
+      path
     );
     books.push(newBook);
 
@@ -51,10 +71,11 @@ router.post("/api/books", file.single("user-book"), (req, res) => {
 });
 
 /* Обновляем книгу */
-router.put("/api/books/:id", (req, res) => {
+router.put("/api/books/:id", file.single("book"), (req, res) => {
   const { books } = store;
-  const { title, description, authors, favorite, fileCover, fileName } =
+  const { title, description, authors, favorite, fileCover, fileName} =
     req.body;
+  const fileBook = req.file.path
   const { id } = req.params;
   const idx = books.findIndex((book) => book.id === id);
 
@@ -67,6 +88,7 @@ router.put("/api/books/:id", (req, res) => {
       favorite,
       fileCover,
       fileName,
+      fileBook
     };
 
     res.json(books[idx]);
