@@ -1,0 +1,25 @@
+{
+  "name": "ndse-homeworks",
+  "version": "1.0.0",
+  "description": "## Блок 2: Библиотека Express.js",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.18.2",
+    "redis": "^4.6.6"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3",
+    "nodemon": "^2.0.7"
+  },
+  "scripts": {
+    "start": "node -r dotenv/config index.js",
+    "dev": "nodemon -r dotenv/config index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvgenySamohvalov/node-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/EvgenySamohvalov/node-project#readme"
+}

@@ -1,6 +1,6 @@
-FROM library-progect/library-progect:1
+FROM node:alpine
 
-WORKDIR /app
+WORKDIR /src
 
 COPY package*.json ./
 
